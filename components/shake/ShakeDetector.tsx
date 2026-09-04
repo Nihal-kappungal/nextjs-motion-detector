@@ -2,11 +2,13 @@
 
 import { useState, useEffect, useRef } from "react";
 import { gooeyToast } from "goey-toast";
+import { useWebHaptics } from "web-haptics/react";
 import { useShakeDetection } from "./useShakeDetection";
 
 export function ShakeDetector() {
   const { isSupported, permissionGranted, requestPermission, shakeDetected, resetShake } =
     useShakeDetection();
+  const { trigger } = useWebHaptics();
   const [permissionRequested, setPermissionRequested] = useState(false);
   const [mounted, setMounted] = useState(false);
   const hasShownRef = useRef(false);
@@ -16,6 +18,7 @@ export function ShakeDetector() {
   useEffect(() => {
     if (shakeDetected && !hasShownRef.current) {
       hasShownRef.current = true;
+      trigger("nudge");
       gooeyToast.success("motion detected", {
         borderColor: "#E0E0E0",
         borderWidth: 1.5,
@@ -26,7 +29,7 @@ export function ShakeDetector() {
     if (!shakeDetected) {
       hasShownRef.current = false;
     }
-  }, [shakeDetected, resetShake]);
+  }, [shakeDetected, resetShake, trigger]);
 
   const handleEnable = async () => {
     setPermissionRequested(true);
