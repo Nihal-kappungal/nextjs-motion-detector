@@ -1,16 +1,32 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { gooeyToast } from "goey-toast";
 import { useShakeDetection } from "./useShakeDetection";
-import { ShakePopup } from "./ShakePopup";
 
 export function ShakeDetector() {
   const { isSupported, permissionGranted, requestPermission, shakeDetected, resetShake } =
     useShakeDetection();
   const [permissionRequested, setPermissionRequested] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const hasShownRef = useRef(false);
 
   useEffect(() => setMounted(true), []); // eslint-disable-line react-hooks/set-state-in-effect
+
+  useEffect(() => {
+    if (shakeDetected && !hasShownRef.current) {
+      hasShownRef.current = true;
+      gooeyToast.success("motion detected", {
+        borderColor: "#E0E0E0",
+        borderWidth: 1.5,
+        preset: "bouncy",
+      });
+      resetShake();
+    }
+    if (!shakeDetected) {
+      hasShownRef.current = false;
+    }
+  }, [shakeDetected, resetShake]);
 
   const handleEnable = async () => {
     setPermissionRequested(true);
@@ -31,8 +47,6 @@ export function ShakeDetector() {
           </button>
         </div>
       )}
-
-      <ShakePopup isOpen={shakeDetected} onClose={resetShake} />
     </>
   );
 }

@@ -4,7 +4,7 @@ A fun project that detects when a user shakes their phone and triggers an on-scr
 
 ## What It Does
 
-Shake your phone and a toast appears at the top of the screen. That's it. Simple, but it opens the door to some interesting possibilities.
+Shake your phone and a bouncy toast notification appears at the top of the screen. Built with [goey-toast](https://www.npmjs.com/package/goey-toast). Simple, but it opens the door to some interesting possibilities.
 
 ## How It Works
 
@@ -31,6 +31,7 @@ While this is just a fun demo, shake detection can be practical in production we
 - [Next.js 16](https://nextjs.org) (App Router)
 - [React 19](https://react.dev)
 - [Tailwind CSS v4](https://tailwindcss.com)
+- [goey-toast](https://www.npmjs.com/package/goey-toast) — bouncy toast notifications
 - TypeScript
 - DeviceMotion Web API
 
@@ -56,8 +57,7 @@ app/
 
 components/shake/
   useShakeDetection.ts  # Hook — motion listener, threshold, cooldown, iOS permission
-  ShakeDetector.tsx     # Orchestrator — permission button, connects hook to toast
-  ShakePopup.tsx        # Toast component — top-center notification
+  ShakeDetector.tsx     # Orchestrator — permission button, triggers gooey-toast on shake
 ```
 
 ## Notes
