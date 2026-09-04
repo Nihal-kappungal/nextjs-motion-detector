@@ -18,7 +18,9 @@ export function ShakeDetector() {
   useEffect(() => {
     if (shakeDetected && !hasShownRef.current) {
       hasShownRef.current = true;
-      trigger("nudge");
+      trigger([
+                { duration: 1000 },
+              ], { intensity: 1 })
       gooeyToast.success("motion detected", {
         borderColor: "#E0E0E0",
         borderWidth: 1.5,
