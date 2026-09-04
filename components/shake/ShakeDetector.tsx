@@ -46,7 +46,7 @@ export function ShakeDetector() {
         <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
           <button
             onClick={handleEnable}
-            className="rounded-full border border-zinc-300 bg-white px-5 py-2.5 text-sm font-medium shadow-lg transition-colors hover:bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+            className="rounded-full border border-zinc-300 bg-white px-5 py-2.5 text-sm font-medium shadow-lg transition-colors dark:border-zinc-600 dark:text-black"
           >
             {permissionRequested ? "Waiting for permission..." : "Enable Shake Detection"}
           </button>
